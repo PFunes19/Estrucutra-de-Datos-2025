@@ -25,7 +25,7 @@ int main(void) {
     int i = 0;
     while (fgets(line, 10, fptr) && i < count) {
         if (line[0] != '\n') {
-            sales[i] = atof(line);  // convierte la línea en float
+            sales[i] = atof(line);
             i++;
         }
     }
