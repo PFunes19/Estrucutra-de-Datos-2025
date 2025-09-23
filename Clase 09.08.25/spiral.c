@@ -8,13 +8,14 @@ int main(void) {
         fprintf(stderr, "Entrada invalida\n");
         return 1;
     }
-    printf("Enter %d int for the matrix:\n", N * M);
 
     int *A = (int*)malloc((size_t)N * (size_t)M * sizeof(int));
     if (!A) {
         fprintf(stderr, "No se pudo asignar memoria\n");
         return 1;
     }
+    
+    printf("Enter %d int for the matrix:\n", N * M);
 
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < M; ++j) {
