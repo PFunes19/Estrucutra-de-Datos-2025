@@ -1,7 +1,3 @@
-// brackets_checker.c
-// Checks brackets per spec: ignore non-bracket chars.
-// On first error, prints 0-based index per rules.
-// Otherwise prints "OK".
 #include <stdio.h>
 
 #define MAX 100000
@@ -33,11 +29,9 @@ int main(void){
                 printf("ERROR %d\n", i);
                 return 0;
             }
-        } // else: ignore other chars
+        }
     }
     if(top >= 0){
-        // Unmatched opener remains; per spec print index of the FIRST unmatched opener
-        // i.e., the bottom-most element in the stack.
         printf("ERROR %d\n", st_idx[0]);
         return 0;
     }
