@@ -29,6 +29,7 @@ int is_empty(Queue* q) {
     return q->count == 0;
 }
 
+
 int enqueue(Queue* q, int val) {
     Node* n = create_node(val);
     if (!n) return 0;
@@ -51,6 +52,17 @@ int dequeue(Queue* q, int* out) {
     free(tmp);
     q->count--;
     return 1;
+}
+
+void clear_queue(Queue* q) {
+    Node* p = q->front;
+    while (p) {
+        Node* nxt = p->next;
+        free(p);
+        p = nxt;
+    }
+    q->front = q->rear = NULL;
+    q->count = 0;
 }
 
 void display(Queue* q) {
@@ -85,12 +97,13 @@ int read_int(const char* prompt, int* out) {
 int main(void) {
     Queue q;
     init_queue(&q);
-    int opcion = -1;
+    int opcion;
     for (;;) {
-        printf("\n1) Enqueue\n2) Dequeue\n3) Mostrar\n0) Salir\n");
+        printf("\n1) Enqueue\n2) Dequeue\n3) Mostrar\n4) Vaciar\n0) Salir\n");
         read_int("Opcion: ", &opcion);
         switch (opcion) {
             case 0:
+                clear_queue(&q);
                 return 0;
             case 1: {
                 int v;
@@ -110,6 +123,11 @@ int main(void) {
                 break;
             }
             case 3:
+                display(&q);
+                break;
+            case 4:
+                clear_queue(&q);
+                printf("Cola vaciada.\n");
                 display(&q);
                 break;
             default:
