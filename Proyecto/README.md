@@ -17,9 +17,8 @@ Ayudar a un usuario (por ejemplo, un estudiante de estructuras de datos) a conec
 ---
 
 ## Link de la presentación
-´´´text
+
 https://www.canva.com/design/DAG5xEnGw1o/eExudjMaO5t0pGUHL6hWTQ/view?utm_content=DAG5xEnGw1o&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h94afa4dcf6
-´´´
 
 ---
 
