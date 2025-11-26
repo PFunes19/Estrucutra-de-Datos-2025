@@ -4,7 +4,7 @@ Este proyecto es un asistente interactivo en C que hace una serie de preguntas s
 
 Además de la recomendación, el sistema muestra:
 
-- Una representación visual sencilla (diagrama ASCII).
+- Una representación visual sencilla.
 - Una explicación de por qué se eligió esa estructura.
 - Pseudocódigo de operaciones típicas con su complejidad temporal.
 
