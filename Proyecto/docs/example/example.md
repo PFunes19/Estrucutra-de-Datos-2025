@@ -1,7 +1,7 @@
 # Ejemplo: Sistema de atención de llamadas (Call Center)
 
 ## 1. Descripción del problema
-Un call center recibe llamadas de clientes. Si todos los agentes están ocupados, las llamadas deben esperar en el mismo orden en que llegan. El comportamiento es claramente **FIFO**, lo que corresponde al uso de una **cola (queue)** como estructura de datos.
+Un call center recibe llamadas de clientes. Si los agentes están ocupados, las llamadas esperan en el mismo orden en que llegan. Este comportamiento es **FIFO**, por lo que la estructura adecuada es una **cola (queue)**.
 
 ---
 
@@ -18,20 +18,33 @@ Un call center recibe llamadas de clientes. Si todos los agentes están ocupados
 | ¿Relaciones tipo grafo? | 0 |
 | ¿Tamaño dinámico grande? | 1 |
 
-Resultado: `need_fifo = 1` y `need_lifo = 0` → **Queue**.
+Resultado: **Queue**.
 
 ---
 
 ## 3. Estructura recomendada: Cola (Queue)
 
 ```text
-front -> [ C1 ] -> [ C2 ] -> [ C3 ] <- rear
-
-- front: llamada que será atendida primero.
-- rear: última llamada que llegó.
-
+    front -> [ C1 ] -> [ C2 ] -> [ C3 ] <- rear
+```
 ---
-
-## 4. Estructura recomendada: Cola (Queue)
-
-enqueue (llega una llamada)
+## 4. Pseudocódigo escnecial
+enqueue(nueva llamada)
+```text
+enqueue(Q, x):
+    Q[rear] = x
+    rear = (rear + 1) mod capacidad
+```
+dequeue (un agente atiende)
+```text
+dequeue(Q):
+    x = Q[front]
+    front = (front + 1) mod capacidad
+    return x
+```
+---
+## 5. Ejecución del ejemplo
+- 1.Llegan C1, C2, C3
+```text
+front -> [ C1 ] -> [ C2 ] -> [ C3 ] <- rear
+```
