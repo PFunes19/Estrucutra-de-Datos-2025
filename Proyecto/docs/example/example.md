@@ -31,20 +31,33 @@ Resultado: **Queue**.
 ## 4. Pseudocódigo escnecial
 enqueue(nueva llamada)
 ```text
-enqueue(Q, x):
-    Q[rear] = x
-    rear = (rear + 1) mod capacidad
+    enqueue(Q, x):
+        Q[rear] = x
+        rear = (rear + 1) mod capacidad
 ```
 dequeue (un agente atiende)
 ```text
-dequeue(Q):
-    x = Q[front]
-    front = (front + 1) mod capacidad
-    return x
+    dequeue(Q):
+        x = Q[front]
+        front = (front + 1) mod capacidad
+        return x
 ```
 ---
 ## 5. Ejecución del ejemplo
-- 1.Llegan C1, C2, C3
+1. Llegan C1, C2, C3
 ```text
-front -> [ C1 ] -> [ C2 ] -> [ C3 ] <- rear
+    front -> [ C1 ] -> [ C2 ] -> [ C3 ] <- rear
 ```
+2. Un agente atiende
+```text
+    front -> [ C2 ] -> [ C3 ] <- rear
+```
+3. Llegan C4 y C5
+```text
+    front -> [ C2 ] -> [ C3 ] -> [ C4 ] -> [ C5 ] <- rear
+```
+4. Orden final de atención: C2, C3, C4, C5.
+---
+## 6. Justificación
+
+La cola respeta el orden de llegada, es eficiente (O(1)) y representa correctamente una fila de espera en un call center.
