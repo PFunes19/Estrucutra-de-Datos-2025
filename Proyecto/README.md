@@ -89,6 +89,34 @@ Para cumplir con el requisito de tener una forma sencilla de ejecutar el sistema
        ... (pruebas de la lógica de decisión)
 3. Asegúrate de tener gcc instalado y agregado al PATH.
 
-4. En Windows, abre una terminal en la carpeta del proyecto y ejecuta:
+4. En Windows, abre una terminal en la carpeta del proyecto y ejecuta: run.bat
 
-run.bat
+Este comando:
+
+Compila src\main.c en un ejecutable llamado ds_assistant.exe.
+
+Ejecuta el programa inmediatamente después de compilar.
+
+También puedes hacer doble clic sobre run.bat desde el Explorador de archivos.
+
+---
+## Carpetas
+    /src/
+        main.c                # Código fuente principal del asistente
+
+    /docs/
+        decision_questions.md # Lista de preguntas del cuestionario + justificación
+        decision_rules.md     # Reglas de decisión (cómo se elige cada estructura)
+        diagrams/             # Imágenes PNG de las estructuras (Array.png, BST.png, etc.)
+        slides/               # Presentación usada en clase (opcional)
+
+    /example/
+        ejemplo_cola_call_center.md  # Ejemplo concreto basado en una tarea real
+
+    /tests/
+        ...                  # Pruebas simples de la lógica de decisión
+
+    run.bat                  # Script para compilar y ejecutar en Windows
+    README.md                # Este archivo
+    LICENSE                  # Licencia del proyecto (por ejemplo, MIT)
+    CHANGELOG.md             # Historial de cambios del proyecto
