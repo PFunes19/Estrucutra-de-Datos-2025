@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* Enumeración de estructuras de datos posibles */
 typedef enum {
     STRUCT_ARRAY = 0,
     STRUCT_LINKED_LIST,
@@ -12,16 +11,15 @@ typedef enum {
     STRUCT_GRAPH
 } DataStructureType;
 
-/* Respuestas del usuario a las preguntas */
 typedef struct {
-    int need_random_access;              // ¿Necesito acceder por índice rápido?
-    int frequent_insert_delete_middle;   // ¿Inserto/borro mucho en medio?
-    int need_fifo;                       // ¿Comportamiento cola (FIFO)?
-    int need_lifo;                       // ¿Comportamiento pila (LIFO)?
-    int need_sorted;                     // ¿Necesito mantener ordenado?
-    int need_priority;                   // ¿Hay prioridades (siempre el "más importante" primero)?
-    int need_graph_relationships;        // ¿Relaciones complejas como grafo?
-    int expected_size_large;             // ¿Conjunto de datos grande y dinámico?
+    int need_random_access;
+    int frequent_insert_delete_middle;
+    int need_fifo; 
+    int need_lifo;
+    int need_sorted;
+    int need_priority;
+    int need_graph_relationships;
+    int expected_size_large;
 } Answers;
 
 /* Prototipos */
@@ -31,8 +29,9 @@ const char* structure_name(DataStructureType t);
 void print_structure_diagram(DataStructureType t);
 void print_explanation(DataStructureType t, const Answers *a);
 void print_operations_pseudocode(DataStructureType t);
-
 int read_yes_no(void);
+
+void open_diagram_image(DataStructureType t);
 
 int main(void) {
     Answers ans;
@@ -59,13 +58,11 @@ int main(void) {
     return 0;
 }
 
-/* Lee una respuesta 1 = Si, 0 = No, con validación básica */
 int read_yes_no(void) {
     int x;
     while (1) {
         printf(" (1 = Si, 0 = No): ");
         if (scanf("%d", &x) != 1) {
-            /* Limpiar buffer si hay entrada no numerica */
             int c;
             while ((c = getchar()) != '\n' && c != EOF) { }
             printf("Entrada invalida. Intenta de nuevo.\n");
@@ -77,7 +74,6 @@ int read_yes_no(void) {
     }
 }
 
-/* Preguntas al usuario */
 void ask_questions(Answers *a) {
     printf("Responde las siguientes preguntas sobre tu problema:\n\n");
 
@@ -87,68 +83,58 @@ void ask_questions(Answers *a) {
     printf("\n2) ¿Vas a insertar o eliminar elementos frecuentemente en medio de la coleccion?\n");
     a->frequent_insert_delete_middle = read_yes_no();
 
-    printf("\n3) ¿Los elementos se procesan en orden de llegada (primero en entrar, primero en salir - FIFO)?\n");
+    printf("\n3) ¿Los elementos se procesan en orden de llegada (FIFO)?\n");
     a->need_fifo = read_yes_no();
 
-    printf("\n4) ¿Los elementos se procesan en orden inverso a la llegada (ultimo en entrar, primero en salir - LIFO)?\n");
+    printf("\n4) ¿Los elementos se procesan en orden inverso a la llegada (LIFO)?\n");
     a->need_lifo = read_yes_no();
 
-    printf("\n5) ¿Necesitas mantener los datos ordenados de forma continua (por valor, clave, etc.)?\n");
+    printf("\n5) ¿Necesitas mantener los datos ordenados de forma continua?\n");
     a->need_sorted = read_yes_no();
 
     printf("\n6) ¿Siempre necesitas extraer el elemento con mayor prioridad (o menor) primero?\n");
     a->need_priority = read_yes_no();
 
-    printf("\n7) ¿Tu problema modela entidades con relaciones complejas (por ejemplo ciudades y rutas, usuarios conectados, etc.)?\n");
+    printf("\n7) ¿Tu problema modela entidades con relaciones complejas (ciudades y rutas, usuarios conectados, etc.)?\n");
     a->need_graph_relationships = read_yes_no();
 
     printf("\n8) ¿Esperas una cantidad grande y cambiante de datos (crece mucho con el tiempo)?\n");
     a->expected_size_large = read_yes_no();
 }
 
-/* Lógica de decisión basada en las respuestas */
 DataStructureType decide_structure(const Answers *a) {
 
-    /* 1. Si hay relaciones complejas, un grafo es buen candidato */
     if (a->need_graph_relationships) {
         return STRUCT_GRAPH;
     }
 
-    /* 2. Si hay prioridad clara, usar heap/priority queue */
     if (a->need_priority) {
         return STRUCT_HEAP;
     }
 
-    /* 3. FIFO -> Cola */
     if (a->need_fifo && !a->need_lifo) {
         return STRUCT_QUEUE;
     }
 
-    /* 4. LIFO -> Pila */
     if (a->need_lifo && !a->need_fifo) {
         return STRUCT_STACK;
     }
 
-    /* 5. Datos ordenados -> Arbol binario de busqueda (simplificado) */
     if (a->need_sorted) {
         return STRUCT_BST;
     }
 
-    /* 6. Acceso por indice rapido, pocas inserciones intermedias -> Arreglo */
     if (a->need_random_access && !a->frequent_insert_delete_middle) {
         return STRUCT_ARRAY;
     }
 
-    /* 7. Si hay muchas inserciones/borrados en medio o tamano dinamico grande -> Lista ligada */
     if (a->frequent_insert_delete_middle || a->expected_size_large) {
         return STRUCT_LINKED_LIST;
     }
 
-    /* 8. Caso por defecto: arreglo */
     return STRUCT_ARRAY;
 }
 
-/* Nombre legible de la estructura */
 const char* structure_name(DataStructureType t) {
     switch (t) {
         case STRUCT_ARRAY:        return "Arreglo (Array)";
@@ -162,7 +148,31 @@ const char* structure_name(DataStructureType t) {
     }
 }
 
-/* Dibujo ASCII simple de cada estructura */
+void open_diagram_image(DataStructureType t) {
+    const char *filename = NULL;
+
+    switch (t) {
+        case STRUCT_ARRAY:       filename = "Array.png";          break;
+        case STRUCT_LINKED_LIST: filename = "Lista ligada.png";   break;
+        case STRUCT_STACK:       filename = "Stack.png";          break;
+        case STRUCT_QUEUE:       filename = "Queue.png";          break;
+        case STRUCT_BST:         filename = "BST.png";            break;
+        case STRUCT_HEAP:        filename = "Heap.png";           break;
+        case STRUCT_GRAPH:       filename = "Grafo.png";          break;
+        default:                 filename = NULL;                 break;
+    }
+
+    if (filename == NULL) {
+        return;
+    }
+
+    printf("\nIntentando abrir la imagen del diagrama: %s\n", filename);
+
+    char command[512];
+
+    system(command);
+}
+
 void print_structure_diagram(DataStructureType t) {
     printf("=== Representacion visual (ASCII) ===\n");
 
@@ -222,9 +232,11 @@ void print_structure_diagram(DataStructureType t) {
             printf("No hay diagrama disponible.\n");
             break;
     }
+
+    /* Después de mostrar el ASCII, intenta abrir el PNG */
+    open_diagram_image(t);
 }
 
-/* Explicacion de por que se escogio la estructura */
 void print_explanation(DataStructureType t, const Answers *a) {
     printf("=== Explicacion de la recomendacion ===\n");
 
@@ -286,7 +298,6 @@ void print_explanation(DataStructureType t, const Answers *a) {
     }
 }
 
-/* Pseudocodigo de operaciones tipicas (se imprime como texto) */
 void print_operations_pseudocode(DataStructureType t) {
     printf("=== Operaciones tipicas (pseudocodigo + complejidad) ===\n");
 
@@ -329,7 +340,7 @@ void print_operations_pseudocode(DataStructureType t) {
             printf("\n[Push]\n");
             printf("  function push(S, x):\n");
             printf("      S.top = S.top + 1\n");
-            printf("      S[A.top] = x\n");
+            printf("      S[S.top] = x\n");
             printf("  Complejidad: O(1)\n");
 
             printf("\n[Pop]\n");
