@@ -27,8 +27,8 @@ Resultado: `need_fifo = 1` y `need_lifo = 0` → **Queue**.
 ```text
 front -> [ C1 ] -> [ C2 ] -> [ C3 ] <- rear
 
-    - front: llamada que será atendida primero.
-    - rear: última llamada que llegó.
+- front: llamada que será atendida primero.
+- rear: última llamada que llegó.
 
 ---
 
