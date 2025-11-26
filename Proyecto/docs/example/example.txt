@@ -133,5 +133,5 @@ Por eso, una cola (queue):
 Modela de forma natural la fila de clientes.
 Mantiene el comportamiento FIFO.
 Permite insertar y extraer llamadas en O(1).
-Es fácil de implementar con un arreglo circular o una lista ligada.
+Es fácil de implementar con un arreglo circular o una lista ligada.y
 El asistente de estructuras de datos identifica estas características a través del cuestionario y recomienda la cola como estructura de datos principal para el sistema de atención de llamadas.
